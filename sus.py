@@ -47,30 +47,50 @@ else:
             return f"{colorama.Fore.RESET}{_colour}{string}{colorama.Fore.RESET}"
     else:
         print("oopsie")
-    parent = '\\'.join(__file__.split("\\")[:-1])
-    if parent.split("\\")[-1] != "Among us save editor":
+    if not os.path.exists(f"{os.path.expanduser('~')}\\AppData\\LocalLow\\sus"):
+        root = f"{os.path.expanduser('~')}\\AppData\\LocalLow\\sus"
         print(f"{hl('This is the first time this program has been executed. Configuring...', 80, 160, 240)}")
-        print(f"{hl('This script has been moved to <'+parent+'\\sus.py>', 255, 200, 0)}")
-        newfolder(parent+"\\Among us save editor")
-        parent = parent+"\\Among us save editor"
-        os.rename(__file__, parent+"\\sus.py")
-        __file__ = parent+"\\sus.py"
-        with open(parent+"\\config.json", "w") as file:
+        with open(f"{root}\\config.json", "w") as file:
             json.dump({
                 "presets": {
                     
                 }
             }, file)
-        with open(parent+"\\backup.json", "w") as file:
+        with open(f"{root}\\backup.json", "w") as file:
             json.dump({
                 "presets": {
                     
                 }
             }, file)
-        with open(parent+"\\settings.amogus", "w") as file1:
+        with open(f"{root}\\settings.amogus", "w") as file1:
             with open(f"{os.path.expanduser('~')}\\AppData\\LocalLow\\Innersloth\\Among Us\\settings.amogus", "r") as file2:
                 data = json.loads(file2.read())
             json.dump(data, file1)
+    else:
+        root = f"{os.path.expanduser('~')}\\AppData\\LocalLow\\sus"
+        if not os.path.exists(f"{root}\\config.json"):
+            print(f"{hl('Missing config.json, repairing...', 255, 120, 0)}")
+            with open(f"{root}\\config.json", "w") as file:
+                json.dump({
+                    "presets": {
+                        
+                    }
+                }, file)
+        if not os.path.exists(f"{root}\\backup.json"):
+            print(f"{hl('Missing backup.json, repairing...', 255, 120, 0)}")
+            with open(f"{root}\\backup.json", "w") as file:
+                json.dump({
+                    "presets": {
+                        
+                    }
+                }, file)
+        if not os.path.exists(f"{root}\\settings.amogus"):
+            print(f"{hl('Missing settings.amogus, repairing...', 255, 120, 0)}")
+            with open(f"{root}\\settings.amogus", "w") as file1:
+                with open(f"{os.path.expanduser('~')}\\AppData\\LocalLow\\Innersloth\\Among Us\\settings.amogus", "r") as file2:
+                    data = json.loads(file2.read())
+                json.dump(data, file1)
+
     def fuzzyround(a, epsilon=1e-9):
         return round(a/epsilon)*epsilon
     def to_float(a: list):
@@ -187,7 +207,7 @@ else:
     def refreshconfig():
         global presets
         presets = dict(corepresets)
-        with open("\\".join(__file__.split("\\")[:-1])+"\\config.json", "r") as file:
+        with open(f"{root}\\config.json", "r") as file:
             data = json.loads(file.read())["presets"]
             for k in data.keys():
                 v = data[k]
@@ -198,23 +218,23 @@ else:
         if len(colour) != 3:
             return print(f"{hl('Invalid RGB value.', 255, 0, 0)}")
         r, g, b = [clamp(int(n), 0, 255) for n in colour][0:3]
-        with open("\\".join(__file__.split("\\")[:-1])+"\\config.json", "r") as file:
+        with open(f"{root}\\config.json", "r") as file:
             data = json.loads(file.read())
         data["presets"][key.lower().replace(" ","")] = {
             "name": f"{hl(key, r, g, b)}",
             "data": value
         }
-        with open("\\".join(__file__.split("\\")[:-1])+"\\config.json", "w") as file:
+        with open(f"{root}\\config.json", "w") as file:
             try:
                 json.dump(data, file)
             except:
                 print(f"{hl('Something went wrong with exporting your preset. Loading backup...', 255, 0, 0)}")
-                with open("\\".join(__file__.split("\\")[:-1])+"\\backup.json", "r") as file1:
-                    with open("\\".join(__file__.split("\\")[:-1])+"\\config.json", "w") as file2:
+                with open(f"{root}\\backup.json", "r") as file1:
+                    with open(f"{root}\\config.json", "w") as file2:
                         file2.write(file1.read())
             else:
                 print(f"{hl('Exported preset.', 0, 255, 0)}")
-                with open("\\".join(__file__.split("\\")[:-1])+"\\backup.json", "w") as file:
+                with open(f"{root}\\backup.json", "w") as file:
                     json.dump(data, file)
     key = {
         "players": [7],
@@ -243,8 +263,8 @@ else:
         "shapeshiftduration": [63],
         "scientists": [66],
         "scientistodds": [67],
-        "vitalsdisplaycooldown": [72],
-        "batteryduration": [73],
+        "vitalsdisplaycooldown": [71],
+        "batteryduration": [72],
         "guardianangels": [75],
         "guardianangelodds": [76],
         "protectcooldown": [80],
@@ -284,6 +304,7 @@ else:
     taskbarupdates=[f"{hl('Always', 0, 255, 0)}  ", f"{hl('Meetings', 255, 255, 0)}", f"{hl('Never', 255, 0, 0)}   "]
 
     def display(data: list):
+        print(data)
         return f'''┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                      == normalHostOptions ==                                     │
 ├────────────────────────────┬───────────────────────────────┬─────────────────────────────────────┤
@@ -315,7 +336,8 @@ else:
     print('Input' + hl(" 'help' ", 0, 255, 0) + 'for a list of commands.')
     print(f"{display(data)}\nCurrent save code: {encode(data)}")
     while True:
-        action = input("> ").lower().split(" ")
+        action = input("> ").split(" ")
+        action[0] = action[0].lower()
         if action[0] == "help":
             print('''== Among us host options editor - Commands ==
 help - Shows this list.
@@ -327,6 +349,7 @@ save - Saves the currently stored data to the settings file.
 load - Load from a preset.
 presets - View list of presets.
 preview <preset> - View the settings of a preset.
+import <data> - Import data from a save code.
 export - Create a new preset.''')
         elif action[0] == "display":
             print(f"{display(data)}\nCurrent save code: {encode(data)}")
@@ -338,7 +361,7 @@ export - Create a new preset.''')
             else:
                 print(f"{action[1]}={a}")
         elif action[0] == "bset":
-            action[2] = " ".join(action[2:])
+            action[2] = " ".join(action[2:]).lower()
             if len(key[action[1]]) == 1:
                 if cast(action[2]) > 255:
                     print("Input value must not be greater than 255.")
@@ -348,7 +371,7 @@ export - Create a new preset.''')
                     data[key[action[1]][0]] = cast(action[2])
                     print(f"Byte {key[action[1]][0]} set to [{cast(action[2])}]")
             elif len(key[action[1]]) == 2:
-                action[2:] = [int(k) for k in action[2].split(" ")]
+                action[2:] = [int(k) for k in action[2].split(" ").lower()]
                 destination = key[action[1]]
                 valid = True
                 if cast(action[2]) > 255:
@@ -368,9 +391,9 @@ export - Create a new preset.''')
                     print(f"Bytes [{destination[0]}:{destination[1]}] set to [{action[2]}, {action[3]}]")
             print(f"{display(data)}\nCurrent save code: {encode(data)}")
         elif action[0] == "set":
-            if action[1] in ["playerspeed", "crewmatevision", "impostorvision", "killcooldown"]:
+            if action[1].lower() in ["playerspeed", "crewmatevision", "impostorvision", "killcooldown"]:
                 action[2:] = to_sus(action[2])
-                destination = key[action[1]]
+                destination = key[action[1].lower()]
                 valid = True
                 if cast(action[2]) > 255:
                     print("Input value 1 must not be greater than 255.")
@@ -393,7 +416,7 @@ export - Create a new preset.''')
                 elif cast(action[2]) < 0:
                     print("Input value must not be less than 0.")
                 else:
-                    data[key[action[1]][0]] = cast(action[2])
+                    data[key[action[1].lower()][0]] = cast(action[2])
                     print(f"Byte {key[action[1]][0]} set to [{cast(action[2])}]")
             print(f"{display(data)}\nCurrent save code: {encode(data)}")
         elif action[0] == "save":
@@ -414,16 +437,15 @@ export - Create a new preset.''')
                 except:
                     print(f"{hl('Something went wrong while saving. Loading backup...', 255, 0, 0)}")
                     with open(f"{os.path.expanduser('~')}\\AppData\\LocalLow\\Innersloth\\Among Us\\settings.amogus", "w") as file1:
-                        with open(parent+"\\settings.amogus", "r") as file2:
+                        with open(f"{root}\\settings.amogus", "r") as file2:
                             data = json.loads(file2.read())
                         json.dump(data, file1)
                 else:
-                    with open(parent+"\\settings.amogus", "w") as file1:
-                        with open(f"{os.path.expanduser('~')}\\AppData\\LocalLow\\Innersloth\\Among Us\\settings.amogus", "r") as file2:
-                            file1.write(file2.read())
+                    with open(f"{root}\\settings.amogus", "w") as file:
+                        json.dump(output, file)
         elif action[0] == "load":
             refreshconfig()
-            preset = "".join(action[1:])
+            preset = "".join(action[1:]).lower()
             if preset in list(presets.keys()):
                 data = decode(presets[preset]["data"])
                 print(f"Loaded the [{presets[preset]['name']}] preset.")
@@ -446,12 +468,19 @@ export - Create a new preset.''')
                     addpreset(name, encode(data))
             else:
                 addpreset(name, encode(data))
+        elif action[0] == "import":
+            try:
+                data = decode(action[1])
+                print(f"{display(data)}\nCurrent save code: {encode(data)}")
+                print(f"{hl('Imported host options data.', 0, 255, 0)}")
+            except:
+                print(f"{hl('Malformed host options data.', 255, 0, 0)}")
         elif action[0] == "preview":
             refreshconfig()
-            preset = "".join(action[1:])
+            preset = "".join(action[1:]).lower()
             if preset in list(presets.keys()):
-                data = decode(presets[preset]["data"])
-                print(f"{display(data)}\nPreset save code: {encode(data)}")
+                _data = decode(presets[preset]["data"])
+                print(f"{display(_data)}\nPreset save code: {encode(data)}")
         elif action[0] == "presets":
             refreshconfig()
             print(f"Available presets: \n{'\n'.join([f'{presets[k]['name']} {presets[k]['type']}' for k in presets])}")
