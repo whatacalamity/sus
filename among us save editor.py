@@ -2,7 +2,7 @@ try:
     loaded = False
     colour = False
     print("Importing required modules...")
-    for module in ["os", "requests", "webbrowser", "subprocess"]:
+    for module in ["os", "webbrowser", "subprocess"]:
         try:
             exec(f"import {module}")
             print(f"Imported module: {module}")
@@ -10,7 +10,23 @@ try:
         except Exception as e:
             print(f"Failed to import module: {module} ({e})")
             loaded = False
-
+    try:
+        import requests
+        print("Imported module: requests")
+        loaded = True
+    except ImportError:
+        print(f"Failed to import required module: requests\nAttempt installation? (Y/n)")
+        response = input("> ").lower()
+        if response in ["1", "y", "yes", "t", "true"]:
+            print("Attempting installation...")
+            try:
+                os.system('python -m pip install requests')
+                import requests
+            except:
+                pass
+    except Exception as e:
+        print(f"Failed to import module: {module} ({e})")
+        loaded = False
     try:
         exec("import colorama")
         print(f"Imported optional module: colorama")
@@ -21,7 +37,7 @@ try:
             print("Proceeding with installation...")
             try:
                 os.system('python -m pip install colorama')
-                exec("import colorama")
+                import colorama
             except:
                 print("Install failed.\nProceeding without installation...")
         else:
