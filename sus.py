@@ -366,6 +366,7 @@ try:
                 else:
                     print(f"{action[1]}={a}")
             elif action[0] == "bset":
+                action[1] = action[1].lower()
                 action[2] = " ".join(action[2:]).lower()
                 if len(key[action[1]]) == 1:
                     if cast(action[2]) > 255:
@@ -495,4 +496,5 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
+
 
