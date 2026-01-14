@@ -4,7 +4,7 @@ try:
     loaded = False
     colour = False
     print("Importing required modules...")
-    for module in ["base64", "json", "os", "math"]:
+    for module in ["base64", "json", "os", "math", "traceback"]:
         try:
             exec(f"import {module}")
             print(f"Imported module: {module}")
@@ -398,10 +398,11 @@ try:
                 print(f"{display(data)}\nCurrent save code: {encode(data)}")
             elif action[0] == "set":
                 action[1] = action[1].lower()
+                action[2] = " ".join(action[2:]).lower()
                 if not action[1] in key.keys():
                     print(f"{hl('Invalid key.', 255, 0, 0)}")
-                elif action[1].lower in ["playerspeed", "crewmatevision", "impostorvision", "killcooldown"]:
-                    action[2:] = to_sus(action[2])
+                elif action[1] in ["playerspeed", "crewmatevision", "impostorvision", "killcooldown"]:
+                    action[2:] = to_sus(cast(action[2]))
                     destination = key[action[1].lower()]
                     valid = True
                     if cast(action[2]) > 255:
@@ -497,9 +498,6 @@ try:
             else:
                 print("Invalid command. Input 'help' for a list of commands.")
 except Exception as e:
-    print(f"Error opening the editor. You should probably report this\n{e}")
+    print(f"Error using the editor. You should probably report this\n{e}")
+    traceback.print_exc()
     input("| [ENTER] to close program | ")
-
-
-
-
