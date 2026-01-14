@@ -418,6 +418,7 @@ try:
                         data[slice(destination[0],destination[1],1)] = [action[2], action[3]]
                         print(f"Bytes [{destination[0]}:{destination[1]}] set to [{action[2]}, {action[3]}]")
                 else:
+                    action[2] = "".join(action[2:])
                     if cast(action[2]) > 255:
                         print("Input value must not be greater than 255.")
                     elif cast(action[2]) < 0:
@@ -496,5 +497,6 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
+
 
 
