@@ -1,3 +1,5 @@
+__import__("time").sleep(0.5)
+__import__("os").system("cls")
 try:
     loaded = False
     colour = False
@@ -489,5 +491,6 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
+
 
 
