@@ -16,7 +16,7 @@ try:
     try:
         exec("import colorama")
         print(f"Imported optional module: colorama")
-    except Exception as e:
+    except ImportError:
         print(f"Failed to import optional module: colorama\nAttempt installation? (Y/n)")
         response = input("> ").lower()
         if response in ["1", "y", "yes", "t", "true"]:
@@ -28,6 +28,8 @@ try:
                 print("Install failed.\nProceeding without installation...")
         else:
             print("Proceeding without installation...")
+    except:
+        print(f"Failed to import optional module: colorama ({e})")
 
     def hl(string, red, green, blue):
         return string
@@ -491,6 +493,7 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
+
 
 
 
