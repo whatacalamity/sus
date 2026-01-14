@@ -488,3 +488,4 @@ try:
                 print("Invalid command. Input 'help' for a list of commands.")
 except Exception as e:
     print(f"Error opening the editor. You should probably report this to the dev\n{e}")
+    input("| [ENTER] to close program | ")
