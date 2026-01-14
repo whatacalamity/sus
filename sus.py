@@ -396,7 +396,8 @@ try:
                         print(f"Bytes [{destination[0]}:{destination[1]}] set to [{action[2]}, {action[3]}]")
                 print(f"{display(data)}\nCurrent save code: {encode(data)}")
             elif action[0] == "set":
-                if action[1].lower() in ["playerspeed", "crewmatevision", "impostorvision", "killcooldown"]:
+                action[1] = action[1].lower()
+                if action[1].lower in ["playerspeed", "crewmatevision", "impostorvision", "killcooldown"]:
                     action[2:] = to_sus(action[2])
                     destination = key[action[1].lower()]
                     valid = True
@@ -494,3 +495,4 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
+
