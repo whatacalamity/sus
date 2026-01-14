@@ -398,7 +398,9 @@ try:
                 print(f"{display(data)}\nCurrent save code: {encode(data)}")
             elif action[0] == "set":
                 action[1] = action[1].lower()
-                if action[1].lower in ["playerspeed", "crewmatevision", "impostorvision", "killcooldown"]:
+                if not action[1] in key.keys():
+                    print(f"{hl('Invalid key.', 255, 0, 0)}")
+                elif action[1].lower in ["playerspeed", "crewmatevision", "impostorvision", "killcooldown"]:
                     action[2:] = to_sus(action[2])
                     destination = key[action[1].lower()]
                     valid = True
@@ -497,6 +499,7 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
+
 
 
 
