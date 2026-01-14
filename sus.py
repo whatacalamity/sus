@@ -23,7 +23,7 @@ try:
             print("Proceeding with installation...")
             try:
                 os.system('python -m pip install colorama')
-                exec("import colorama")
+                import colorama
             except:
                 print("Install failed.\nProceeding without installation...")
         else:
@@ -491,6 +491,7 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
+
 
 
 
