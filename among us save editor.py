@@ -22,8 +22,8 @@ try:
             try:
                 os.system('python -m pip install requests')
                 import requests
-            except:
-                pass
+            except Exception as e:
+                print(f"Failed to import module: requests ({e})")
     except Exception as e:
         print(f"Failed to import module: {module} ({e})")
         loaded = False
@@ -106,3 +106,4 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
+
