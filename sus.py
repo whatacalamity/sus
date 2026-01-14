@@ -306,29 +306,29 @@ try:
 
         def display(data: list):
             return f'''┌──────────────────────────────────────────────────────────────────────────────────────────────────┐
-    │                                      == normalHostOptions ==                                     │
-    ├────────────────────────────┬───────────────────────────────┬─────────────────────────────────────┤
-    │ Players: {intpad(data[key['players'][0]], 3)}               │ Engineers: {pad(data[key['engineers'][0]], 3)}                │ Guardian angels: {pad(data[key['guardianangels'][0]], 3)}                │
-    │ Map: {maps[data[key['map'][0]]]}           │ Engineer odds: {oddspad(data[key['engineerodds'][0]])}           │ Guardian angel odds: {oddspad(data[key['guardianangelodds'][0]])}           │
-    │ Impostors: {pad(data[key['impostors'][0]], 3)}             │ Vent cooldown: {intpad(data[key['ventcooldown'][0]], 4, "s")}           │ Protect cooldown: {intpad(data[key['protectcooldown'][0]], 4, "s")}              │
-    │ Kill cooldown: {floatpad(to_float(getshortkey('killcooldown')), 's')}    │ Vent duration: {rolepad(data[key['ventduration'][0]], "s")}           │ Protect duration: {intpad(data[key['protectduration'][0]], 4, "s")}              │
-    │ Impostor vision: {floatpad(to_float(getshortkey('impostorvision')), 'x')}  │ Scientists: {pad(data[key['scientists'][0]], 3)}               │ Protect visible to impostors: {booleans[data[key['protectvisibletoimpostors'][0]]]} │
-    │ Kill distance: {distances[data[key['killdistance'][0]]]}      │ Scientist odds: {oddspad(data[key['scientistodds'][0]])}          │                                     │
-    │ Player speed: {floatpad(to_float(getshortkey('playerspeed')), 'x')}     │ Vitals display cooldown: {intpad(data[key['vitalsdisplaycooldown'][0]], 4, "s")} │ Shapeshifters: {pad(data[key['shapeshifters'][0]], 3)}                  │
-    │ Crewmate vision: {floatpad(to_float(getshortkey('crewmatevision')), 'x')}  │ Battery duration: {intpad(data[key['batteryduration'][0]], 4, "s")}        │ Shapeshifter Odds: {oddspad(data[key['shapeshifterodds'][0]])}             │
-    │                            │ Trackers: {pad(data[key['trackers'][0]], 3)}                 │ Shapeshift cooldown: {intpad(data[key['shapeshiftcooldown'][0]], 4, "s")}           │
-    │ Emergency meetings: {pad(data[key['emergencymeetings'][0]], 3)}    │ Tracker odds: {oddspad(data[key['trackerodds'][0]])}            │ Shapeshift duration: {rolepad(data[key['shapeshiftduration'][0]], "s")}           │
-    │ Emergency cooldown: {intpad(data[key['emergencycooldown'][0]], 4, "s")}   │ Tracking cooldown: {intpad(data[key['trackingcooldown'][0]], 4, "s")}       │ Leave shapeshifting evidence: {booleans[data[key['leaveshapeshiftingevidence'][0]]]} │
-    │ Discussion time: {intpad(data[key['discussiontime'][0]], 4, "s")}      │ Tracking delay: {intpad(data[key['trackingdelay'][0]], 4, "s")}          │                                     │
-    │ Voting time {intpad(data[key['votingtime'][0]], 4, "s")}           │ Tracking duration: {intpad(data[key['trackingduration'][0]], 4, "s")}       │ Phantoms: {pad(data[key['phantoms'][0]], 3)}                       │
-    │ Anonymous votes: {booleans[data[key['anonymousvotes'][0]]]}     │ Noisemakers: {pad(data[key['noisemakers'][0]], 3)}              │ Phantom odds: {oddspad(data[key['phantomodds'][0]])}                  │
-    │ Confirm ejects: {booleans[data[key['confirmejects'][0]]]}      │ Noisemaker odds: {oddspad(data[key['noisemakerodds'][0]])}         │ Vanish cooldown: {intpad(data[key['vanishcooldown'][0]], 4, "s")}               │
-    │ Task bar updates: {taskbarupdates[data[key['taskbarupdates'][0]]]} │ Alert duration: {intpad(data[key['alertduration'][0]], 4, "s")}          │ Vanish duration: {intpad(data[key['vanishduration'][0]], 4, "s")}               │
-    │ Common tasks: {pad(data[key['commontasks'][0]], 3)}          │ Impostors get alert: {booleans[data[key['impostorsgetalert'][0]]]}    │                                     │
-    │ Long tasks: {pad(data[key['longtasks'][0]], 3)}            │ Detectives: {pad(data[key['detectives'][0]], 3)}               │ Vipers: {pad(data[key['vipers'][0]], 3)}                         │
-    │ Short tasks: {pad(data[key['shorttasks'][0]], 3)}           │ Detective odds: {oddspad(data[key['detectiveodds'][0]])}          │ Viper odds: {oddspad(data[key['viperodds'][0]])}                    │
-    │ Visual tasks: {booleans[data[key['visualtasks'][0]]]}        │ Suspects per case: {pad(data[key['suspectspercase'][0]], 3)}        │ Dissolve time: {intpad(data[key['dissolvetime'][0]], 4, "s")}                 │
-    └────────────────────────────┴───────────────────────────────┴─────────────────────────────────────┘'''
+│                                      == normalHostOptions ==                                     │
+├────────────────────────────┬───────────────────────────────┬─────────────────────────────────────┤
+│ Players: {intpad(data[key['players'][0]], 3)}               │ Engineers: {pad(data[key['engineers'][0]], 3)}                │ Guardian angels: {pad(data[key['guardianangels'][0]], 3)}                │
+│ Map: {maps[data[key['map'][0]]]}           │ Engineer odds: {oddspad(data[key['engineerodds'][0]])}           │ Guardian angel odds: {oddspad(data[key['guardianangelodds'][0]])}           │
+│ Impostors: {pad(data[key['impostors'][0]], 3)}             │ Vent cooldown: {intpad(data[key['ventcooldown'][0]], 4, "s")}           │ Protect cooldown: {intpad(data[key['protectcooldown'][0]], 4, "s")}              │
+│ Kill cooldown: {floatpad(to_float(getshortkey('killcooldown')), 's')}    │ Vent duration: {rolepad(data[key['ventduration'][0]], "s")}           │ Protect duration: {intpad(data[key['protectduration'][0]], 4, "s")}              │
+│ Impostor vision: {floatpad(to_float(getshortkey('impostorvision')), 'x')}  │ Scientists: {pad(data[key['scientists'][0]], 3)}               │ Protect visible to impostors: {booleans[data[key['protectvisibletoimpostors'][0]]]} │
+│ Kill distance: {distances[data[key['killdistance'][0]]]}      │ Scientist odds: {oddspad(data[key['scientistodds'][0]])}          │                                     │
+│ Player speed: {floatpad(to_float(getshortkey('playerspeed')), 'x')}     │ Vitals display cooldown: {intpad(data[key['vitalsdisplaycooldown'][0]], 4, "s")} │ Shapeshifters: {pad(data[key['shapeshifters'][0]], 3)}                  │
+│ Crewmate vision: {floatpad(to_float(getshortkey('crewmatevision')), 'x')}  │ Battery duration: {intpad(data[key['batteryduration'][0]], 4, "s")}        │ Shapeshifter Odds: {oddspad(data[key['shapeshifterodds'][0]])}             │
+│                            │ Trackers: {pad(data[key['trackers'][0]], 3)}                 │ Shapeshift cooldown: {intpad(data[key['shapeshiftcooldown'][0]], 4, "s")}           │
+│ Emergency meetings: {pad(data[key['emergencymeetings'][0]], 3)}    │ Tracker odds: {oddspad(data[key['trackerodds'][0]])}            │ Shapeshift duration: {rolepad(data[key['shapeshiftduration'][0]], "s")}           │
+│ Emergency cooldown: {intpad(data[key['emergencycooldown'][0]], 4, "s")}   │ Tracking cooldown: {intpad(data[key['trackingcooldown'][0]], 4, "s")}       │ Leave shapeshifting evidence: {booleans[data[key['leaveshapeshiftingevidence'][0]]]} │
+│ Discussion time: {intpad(data[key['discussiontime'][0]], 4, "s")}      │ Tracking delay: {intpad(data[key['trackingdelay'][0]], 4, "s")}          │                                     │
+│ Voting time {intpad(data[key['votingtime'][0]], 4, "s")}           │ Tracking duration: {intpad(data[key['trackingduration'][0]], 4, "s")}       │ Phantoms: {pad(data[key['phantoms'][0]], 3)}                       │
+│ Anonymous votes: {booleans[data[key['anonymousvotes'][0]]]}     │ Noisemakers: {pad(data[key['noisemakers'][0]], 3)}              │ Phantom odds: {oddspad(data[key['phantomodds'][0]])}                  │
+│ Confirm ejects: {booleans[data[key['confirmejects'][0]]]}      │ Noisemaker odds: {oddspad(data[key['noisemakerodds'][0]])}         │ Vanish cooldown: {intpad(data[key['vanishcooldown'][0]], 4, "s")}               │
+│ Task bar updates: {taskbarupdates[data[key['taskbarupdates'][0]]]} │ Alert duration: {intpad(data[key['alertduration'][0]], 4, "s")}          │ Vanish duration: {intpad(data[key['vanishduration'][0]], 4, "s")}               │
+│ Common tasks: {pad(data[key['commontasks'][0]], 3)}          │ Impostors get alert: {booleans[data[key['impostorsgetalert'][0]]]}    │                                     │
+│ Long tasks: {pad(data[key['longtasks'][0]], 3)}            │ Detectives: {pad(data[key['detectives'][0]], 3)}               │ Vipers: {pad(data[key['vipers'][0]], 3)}                         │
+│ Short tasks: {pad(data[key['shorttasks'][0]], 3)}           │ Detective odds: {oddspad(data[key['detectiveodds'][0]])}          │ Viper odds: {oddspad(data[key['viperodds'][0]])}                    │
+│ Visual tasks: {booleans[data[key['visualtasks'][0]]]}        │ Suspects per case: {pad(data[key['suspectspercase'][0]], 3)}        │ Dissolve time: {intpad(data[key['dissolvetime'][0]], 4, "s")}                 │
+└────────────────────────────┴───────────────────────────────┴─────────────────────────────────────┘'''
 
         print(f"{hl('Make sure Among us is closed before modifying your host options.', 255, 200, 0)}")
         input(f"{hl('| [ENTER] to proceed |', 255, 255, 255)} ")
@@ -489,4 +489,5 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
+
 
