@@ -60,7 +60,12 @@ try:
                 _colour = f"\x1b[38;2;{red};{green};{blue}m"
                 return f"{colorama.Fore.RESET}{_colour}{string}{colorama.Fore.RESET}"
         print(f"{hl('Checking for updates...', 80, 160, 240)}")
+        def newfolder(path):
+            if not os.path.exists(path):
+                os.makedirs(path)
         root = f"{os.path.expanduser('~')}\\AppData\\LocalLow\\sus"
+        if not os.path.exists(f"{os.path.expanduser('~')}\\AppData\\LocalLow\\sus"):
+            newfolder(f"{root}\\sus")
         
 
         ###########################################################################
@@ -82,7 +87,7 @@ try:
                     a = file.read()
                     text = response.content
                     if a != text:
-                        print(hl('Update found! (among us save editor.py)', 255, 200, 0))
+                        print(hl('Update fousnd! (among us save editor.py)', 255, 200, 0))
                         print(hl("Select action:\n'source' - Show source (github)\n'install' - Install update\n'skip' - Continue without updating", 255, 255, 255))
                         while True:
                             action = input("> ").lower()
