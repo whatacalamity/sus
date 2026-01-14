@@ -92,6 +92,7 @@ try:
                                 print(f"{hl('Updating...', 255, 200, 0)}")
                                 with open(__file__, "wb") as file:
                                     file.write(text)
+                            os.system("cls")
                             os.system(f"\"{__file__}\" 1")
                     else:
                         print(hl('All up to date! (among us save editor.py)', 0, 255, 0))
