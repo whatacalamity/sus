@@ -54,6 +54,7 @@ try:
             print("oopsie")
         if not os.path.exists(f"{os.path.expanduser('~')}\\AppData\\LocalLow\\sus"):
             root = f"{os.path.expanduser('~')}\\AppData\\LocalLow\\sus"
+            newfolder(f"{root}\\sus")
             print(f"{hl('This is the first time this program has been executed. Configuring...', 80, 160, 240)}")
             with open(f"{root}\\config.json", "w") as file:
                 json.dump({
@@ -493,8 +494,3 @@ try:
 except Exception as e:
     print(f"Error opening the editor. You should probably report this\n{e}")
     input("| [ENTER] to close program | ")
-
-
-
-
-
