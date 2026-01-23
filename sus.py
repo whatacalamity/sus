@@ -200,7 +200,7 @@ try:
             "nokillcooldown": {
                 "name": f"{hl('No Kill Cooldown', 255, 0, 0)}",
                 "type": f"{hl('[Built-in]', 255, 255, 255)}",
-                "data": "CoQAAAEAAA8AAQAAAAAAwD8AAIA/AADAPwAAAAABAQIBAAAAAQAPAAAAeAAAAAAAAQEAAAAJBQAAAAMAAAAKHgIAAAACAAAPBQQAAAADAAA8CgADAA9kAgAAAAAIAAAAAgAACgEJAAAAAgAADx4KAAAAAwAADx4BDAAAAAEAAAMSAAFkAQAAAA=="
+                "data": "CoQAAAEAAA8AAQAAAAAAwD8AAIA/AADAPwAAAAABAQL/AAAAAQAAAAAAPAAAAAAAAQEAAAAJBQAAAAMAAAAKHgIAAAACAAAPBQQAAAADAAA8CgADAA9kAgAAAAAIAAAAAgAACgEJAAAAAgAADx4KAAAAAwAADx4BDAAAAAEAAAMSAAFkAQAAAQ=="
             },
     #        "debug": {
     #            "name": "debug",
@@ -501,3 +501,4 @@ except Exception as e:
     print(f"Error using the editor. You should probably report this\n{e}")
     traceback.print_exc()
     input("| [ENTER] to close program | ")
+
