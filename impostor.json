@@ -1,4 +1,10 @@
 {
+  "updater": {
   "version": "1.0",
-  "changelog": "Updater doesnt need to download the entire script to work. (vulnerability hell)"
+  "changelog": "Added version control to updater."
+  },
+  "editor": {
+  "version": "1.0",
+  "changelog": "Added version control to editor."
+  }
 }
