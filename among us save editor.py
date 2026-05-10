@@ -179,7 +179,7 @@ if skip == False:
                                     print("Downloading...", 200, 180, 40)
                                     response = get(source_updater)
                                     if response.status_code == 200:
-                                        a = (response.text.replace("VERSION = 0.0", f"VERSION = {vc['updater']['version']}")).encode("utf8")
+                                        a = (response.text.replace("VERSION = \"0.0\"", f"VERSION = {vc['updater']['version']}")).encode("utf8")
                                         with open(__file__, "wb") as file:
                                             file.write(a)
                                         print("Restart required for update to take effect.", 200, 180, 40)
