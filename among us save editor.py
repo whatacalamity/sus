@@ -1,6 +1,6 @@
 # Updater
 
-VERSION = "0.0"
+VERSION = "1.0"
 
 ##################################################################################################
 
@@ -15,8 +15,9 @@ optional_imports = ["colorama"]
 inf = float("inf")
 
 def gt(v1, v2):
-    v1, v2 = f"{v1}", f"{v2}"
-    v1, v2 = v1+".0" if v1.count(".")==0 else v1, v2+".0" if v2.count(".")==0 else v2
+    if v1.count(".") + v2.count(".") == 0:
+        return int(v1) > int(v2)
+    v1, v2 = f"{v1}.0" if v1.count(".")==0 else v1, f"{v2}.0" if v2.count(".")==0 else v2
     if int(v1.split(".")[0]) > int(v2.split(".")[0]):
         return True
     elif int(v1.split(".")[0]) == int(v2.split(".")[0]):
@@ -161,7 +162,6 @@ if skip == False:
             response = modules["requests"].get(source_version)
             if response.status_code == 200:
                 vc = response.json()
-                print(vc)
                 if gt(vc["updater"]["version"], VERSION):
                     print(f"\nLauncher update available! ({VERSION} -> {vc['updater']['version']})", 40, 200, 200)
                     print(f"\n{vc['updater']['changelog']}", 40, 200, 200)
@@ -201,7 +201,8 @@ if skip == False:
                             print("Invalid action.", 200, 40, 40)
             else:
                 print("Error in getting version control. Is Github down?", 255, 120, 0)
-        except:
+        except Exception as e:
+            print(e)
             print("Error in getting version control. Is Github down?", 255, 120, 0)
 
 
