@@ -1,1 +1,4 @@
-{}
+{
+  "version": "1.0",
+  "changelog": "Updater doesnt need to download the entire script to work. (vulnerability hell)"
+}
