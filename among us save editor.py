@@ -1,148 +1,238 @@
-try:
-    loaded = False
-    colour = False
-    print("Importing required modules...")
-    for module in ["os", "webbrowser", "subprocess"]:
-        try:
-            exec(f"import {module}")
-            print(f"Imported module: {module}")
-            loaded = True
-        except Exception as e:
-            print(f"Failed to import module: {module} ({e})")
-            loaded = False
-    try:
-        import requests
-        print("Imported module: requests")
-        loaded = True
-    except ImportError:
-        print(f"Failed to import required module: requests\nAttempt installation? (Y/n)")
-        response = input("> ").lower()
-        if response in ["1", "y", "yes", "t", "true"]:
-            print("Attempting installation...")
-            try:
-                os.system('python -m pip install requests')
-                import requests
-            except Exception as e:
-                print(f"Failed to import module: requests ({e})")
-    except Exception as e:
-        print(f"Failed to import module: {module} ({e})")
-        loaded = False
-    try:
-        exec("import colorama")
-        print(f"Imported optional module: colorama")
-    except Exception as e:
-        print(f"Failed to import optional module: colorama\nAttempt installation? (Y/n)")
-        response = input("> ").lower()
-        if response in ["1", "y", "yes", "t", "true"]:
-            print("Proceeding with installation...")
-            try:
-                os.system('python -m pip install colorama')
-                import colorama
-            except:
-                print("Install failed.\nProceeding without installation...")
-        else:
-            print("Proceeding without installation...")
+# Updater
 
-    def hl(string, red, green, blue):
-        return string
-            
-    try:
-        colorama.init()
-        colour = True
-    except:
-        print("Failed to initialize colorama. Terminal will not be highlighted.")
-    if loaded == False:
-        print("One or more required imports failed to load.")
-        input("| [ENTER] to close program | ")
+VERSION = "0.0"
+
+##################################################################################################
+
+source_main = "https://raw.githubusercontent.com/whatacalamity/sus/refs/heads/main/sus.py"
+source_updater = "https://raw.githubusercontent.com/whatacalamity/sus/refs/heads/main/among us save editor.py"
+source_version = "https://raw.githubusercontent.com/whatacalamity/sus/refs/heads/main/impostor.json"
+required_imports = ["builtins", "requests", "webbrowser", "backoff"]
+optional_imports = ["colorama"]
+
+##################################################################################################
+
+inf = float("inf")
+
+def gt(v1, v2):
+    v1, v2 = v1+".0" if v1.count(".")==0 else v1, v2+".0" if v2.count(".")==0 else v2
+    if int(v1.split(".")[0]) > int(v2.split(".")[0]):
+        return True
+    elif int(v1.split(".")[0]) == int(v2.split(".")[0]):
+        return gt(".".join(v1.split(".")[1:]), ".".join(v2.split(".")[1:]))
     else:
-        if colour == True:
-            def hl(string, red: int, green: int, blue: int):
-                _colour = f"\x1b[38;2;{red};{green};{blue}m"
-                return f"{colorama.Fore.RESET}{_colour}{string}{colorama.Fore.RESET}"
-        print(f"{hl('Checking for updates...', 80, 160, 240)}")
-        def newfolder(path):
-            if not os.path.exists(path):
-                os.makedirs(path)
-        root = f"{os.path.expanduser('~')}\\AppData\\LocalLow\\sus"
-        if not os.path.exists(f"{os.path.expanduser('~')}\\AppData\\LocalLow\\sus"):
-            newfolder(f"{root}\\sus")
-        
+        return False
+    
 
-        ###########################################################################
-        
-        source_main = "https://raw.githubusercontent.com/whatacalamity/sus/refs/heads/main/sus.py"
-        source_updater = "https://raw.githubusercontent.com/whatacalamity/sus/refs/heads/main/among us save editor.py"
-        
-        ###########################################################################
+vc = {
+    "editor": {"version": inf, "changelog": "-"},
+    "updater": {"version": inf, "changelog": "-"}
+}
 
+modules = {}
 
+try:
+    modules["os"] = __import__("os")
+except ImportError:
+    print("Critical module \"os\" not found. How did you even pull this off?")
+    input("Press ENTER to close program.\n> ")
+    exit(713)
+except:
+    print("An error occurred while trying to import critical module \"os\". How did you even pull this off?")
+    input("Press ENTER to close program.\n> ")
+    exit(713)
+
+def pause(msg: str="Press any key to continue . . ."):
+    print(msg)
+    return modules["os"].system(f"pause >{modules['os'].devnull} 2>&1")
+
+pip = True
+
+print("Verifying pip installation...")
+try:
+    modules["os"].system(f"python -m ensurepip --upgrade >{modules['os'].devnull} 2>&1")
+except:
+    print(f"An error occurred while trying to verify pip's installation.")
+    pause("Press any key to skip verification. (You cannot install missing dependencies.)")
+    pip = False
+print("pip installation verified.")
+
+skip = []
+    
+for module in optional_imports:
+    while not module in modules.keys() and not module in skip:
+        print(f"Attempting to import optional module \"{module}\"...")
         try:
-            response = requests.get(source_updater)
-        except:
-            print(f"{hl('Could not connect to server. Check your internet connection. (among us save editor.py)', 255, 120, 0)}")
-            print(f"{hl('Skipping launcher update...', 255, 120, 0)}")
-        else:
-            if response.status_code == 200:
-                with open(__file__, "rb") as file:
-                    a = file.read()
-                    text = response.content
-                    if a != text:
-                        print(hl('Update fousnd! (among us save editor.py)', 255, 200, 0))
-                        print(hl("Select action:\n'source' - Show source (github)\n'install' - Install update\n'skip' - Continue without updating", 255, 255, 255))
-                        while True:
-                            action = input("> ").lower()
-                            if action == "source":
-                                webbrowser.open_new_tab(source_updater)
-                            elif action == "install":
-                                print(f"{hl('Updating...', 255, 200, 0)}")
-                                with open(__file__, "wb") as file:
-                                    file.write(text)
-                            os.system("cls")
-                            os.system(f"\"{__file__}\" 1")
-                    else:
-                        print(hl('All up to date! (among us save editor.py)', 0, 255, 0))
+            modules[module] = __import__(module)
+        except ImportError:
+            if pip == False:
+                print(f"Optional module \"{module}\" not found. Dependencies cannot be installed at this time.")
+                pause("Press any key to skip installation.")
+            elif input(f"Optional module \"{module}\" not found. Attempt installation? Y/N\n> ").lower() in ["y", "yes"]:
+                try:
+                    modules["os"].system(f"pip install {module}")
+                except:
+                    print(f"An error occurred while trying to install optional module \"{module}\".")
+                    pause("Press any key to skip installation.")
+                    print("Skipping installation...")
+                    skip += [module]
+                continue
             else:
-                print(f"{hl('Could not connect to server. Check your internet connection.', 255, 120, 0)}")
-                print(f"{hl('Skipping launcher update...', 255, 120, 0)}")
+                print("Skipping installation...")
+                skip += [module]
+        else:
+            if module == "colorama":
+                print(f"{modules['colorama'].Fore.RESET}\x1b[38;2;40;200;40mImported optional module \"colorama\".{modules['colorama'].Fore.RESET}")
+            else:
+                print(f"Imported optional module \"{module}\".")
+
+skip = False
+
+for module in required_imports:
+    while not module in modules.keys() and skip == False:
+        print(f"Attempting to import required module \"{module}\"...")
         try:
-            response = requests.get(source_main)
-        except:
-            print(f"{hl('Could not connect to server. Check your internet connection. (sus.py)', 255, 120, 0)}")
-            print(f"{hl('Skipping editor update...', 255, 120, 0)}")
-            os.system(f"{root}\\sus.py 1")
-        else:
-            if response.status_code == 200:
-                if not os.path.exists(f"{root}\\sus.py"):
-                    open(f"{root}\\sus.py", "w")
-                with open(f"{root}\\sus.py", "rb") as file:
-                    a = file.read()
-                    text = response.content
-                    if a != text:
-                        print(hl('Update found! (sus.py)', 255, 200, 0))
-                        print(hl("Select action:\n'source' - Show source (github)\n'install' - Install update and launch\n'skip' - Launch without updating", 255, 255, 255))
-                        while True:
-                            action = input("> ").lower()
-                            if action == "source":
-                                webbrowser.open_new_tab(source_main)
-                            elif action == "install":
-                                print(f"{hl('Updating...', 255, 200, 0)}")
-                                with open(f"{root}\\sus.py", "wb") as file:
-                                    file.write(text)
-                                print(hl('All up to date! (sus.py)', 0, 255, 0))
-                            os.system(f"{root}\\sus.py 1")
-                    else:
-                        print(hl('All up to date! (sus.py)', 0, 255, 0))
-                        os.system(f"{root}\\sus.py 1")
+            modules[module] = __import__(module)
+        except ImportError:
+            if pip == False:
+                print(f"Required module \"{module}\" not found. Dependencies cannot be installed at this time.")
+                pause("Press any key to launch without updating.")
+                try:
+                    modules["os"].system(f"pip install {module}")
+                except:
+                    print(f"An error occurred while trying to install required module \"{module}\".", 200, 40, 40)
+                    pause("Press any key to launch without updating.")
+                    skip = True
+                    break
+                continue
+            elif input(f"Required module \"{module}\" not found. Attempt installation? Y/N\n> ").lower() in ["y", "yes"]:
+                try:
+                    modules["os"].system(f"pip install {module}")
+                except:
+                    print(f"An error occurred while trying to install required module \"{module}\".")
+                    pause("Press any key to launch without updating.")
+                    print("Launching without updating...")
+                    skip = True
+                continue
             else:
-                print(f"{hl('Could not connect to server. Check your internet connection.', 255, 120, 0)}")
-                input("| [ENTER] to launch without updating | ")
-                os.system(f"{root}\\sus.py 1")
-                input("| [ENTER] to close program | ")
-except Exception as e:
-    print(f"Error opening the launcher. You should probably report this\n{e}")
+                print("Launching without updating...")
+                skip = True
+                
+        else:
+            if module == "builtins":
+                if "colorama" in modules.keys():
+                    modules["colorama"].init()
+                    def print(text, red: int=204, green: int=204, blue: int=204):
+                        return modules["builtins"].print(f"{modules['colorama'].Fore.RESET}\x1b[38;2;{red};{green};{blue}m{text}{modules['colorama'].Fore.RESET}")
+                    
+                    def input(text, red: int=204, green: int=204, blue: int=204):
+                        return modules["builtins"].input(f"{modules['colorama'].Fore.RESET}\x1b[38;2;{red};{green};{blue}m{text}{modules['colorama'].Fore.RESET}")
+                    
+                    def pause(msg: str="Press any key to continue . . .", red: int=204, green: int=204, blue: int=204):
+                        print(msg, red, green, blue)
+                        return modules["os"].system(f"pause >{modules['os'].devnull} 2>&1")
+                else:
+                    def print(text, red: int=204, green: int=204, blue: int=204):
+                        return modules["builtins"].print(text)
+                    
+                    def input(text, red: int=204, green: int=204, blue: int=204):
+                        return modules["builtins"].input(text)
+            print(f"Imported required module \"{module}\".", 40, 200, 40)
+
+
+
+if skip == False:
+    @modules["backoff"].on_exception(
+        modules["backoff"].expo,
+        modules["requests"].exceptions.RequestException,
+        max_tries=3,
+        giveup=lambda e: e.response is not None and e.response.status_code != 200
+    )
+    def get(url: str):
+        return modules["requests"].get(url, timeout=20)
     try:
-        input("| [ENTER] to launch without updating | ")
-        os.system(f"{root}\\sus.py 1")
-    except Exception as e:
-        print(f"Error opening the editor. You should probably report this\n{e}")
-    input("| [ENTER] to close program | ")
+        response = modules["requests"].get("https://8.8.8.8")
+    except:
+        print("You are not connected to the internet. Skipping updater...", 200, 40, 40)
+    else:
+        print("Checking for updates...", 200, 180, 40)
+        try:
+            response = modules["requests"].get(source_version)
+            if response.status_code == 200:
+                vc = response.json()
+                if gt(vc["updater"]["version"], VERSION):
+                    print(f"\nLauncher update available! ({VERSION} -> {vc['updater']['version']})", 40, 200, 200)
+                    print(f"\n{vc['updater']['changelog']}", 40, 200, 200)
+                    print("\n'install' to install\n'source' to view source\n'skip' to skip update")
+                    action = ""
+                    while not action in ["install", "source", "skip"]:
+                        action = input("> ").lower()
+                        if action == "source":
+                            print("Source opened in new tab.", 200, 180, 0)
+                            modules["webbrowser"].open(source_updater)
+                            action = ""
+                        elif action == "skip":
+                            print("Continuing without update...", 200, 180, 0)
+                        elif action == "install":
+                            if input(f"Proceed with installing? Y/N\n> ").lower() in ["y", "yes"]:
+                                try:
+                                    print("Downloading...", 200, 180, 40)
+                                    response = get(source_updater)
+                                    if response.status_code == 200:
+                                        with open(__file__, "wb") as file:
+                                            file.write(response.text)
+                                        print("Restart required for update to take effect.", 200, 180, 40)
+                                        pause("Press any key to restart the launcher.")
+                                        modules["os"].system("cls")
+                                        modules["os"].system(f"python \"{__file__}\"")
+                                    else:
+                                        print("Error in downloading launcher. Is Github down?")
+                                        action = ""
+                                except:
+                                    print("Error in downloading launcher. Is Github down?")
+                                    action = ""
+                            else:
+                                print("Installation aborted.", 200, 180, 0)
+                                action = ""
+                        else:
+                            print("Invalid action.", 200, 40, 40)
+            else:
+                print("Error in getting version control. Is Github down?", 255, 120, 0)
+        except Exception as e:
+            print(e)
+            print("Error in getting version control. Is Github down?", 255, 120, 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+print("How did we get here?", 80, 160, 200)
+pause("Press any key to close program.")
+exit(0)
