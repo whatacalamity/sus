@@ -241,7 +241,10 @@ if skip == False:
                                     print("Downloading...", 200, 180, 40)
                                     response = modules["requests"].get(source_updater)
                                     if response.status_code == 200:
+                                        _ = EDITOR_VERSION
+                                        EDITOR_VERSION = "0.0"
                                         a = (response.text.replace("LAUNCHER_VERSION = \"0.0\"", f"LAUNCHER_VERSION = \"{vc['updater']['version']}\"")).encode("utf8")
+                                        EDITOR_VERSION = _
                                         with open(__file__, "wb") as file:
                                             file.write(a)
                                         print("Restart required for update to take effect.", 200, 180, 40)
