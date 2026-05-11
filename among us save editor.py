@@ -1,6 +1,6 @@
 # Updater
 
-VERSION = "0.0"
+LAUNCHER_VERSION = "0.0"
 
 EDITOR_VERSION = "0.0"
 
@@ -68,9 +68,9 @@ if modules["os"].system(f"python -m pip --version >{modules['os'].devnull} 2>&1"
     pause("pip is missing.\nPress any key to install pip.")
     print("Installing pip...")
     try:
-        modules["os"].system(f"python -m ensurepip --upgrade")
+        modules["os"].system("python -m ensurepip --upgrade")
     except:
-        print(f"An error occurred while trying to verify pip's installation.")
+        print("An error occurred while trying to verify pip's installation.")
         pause("Press any key to skip verification. (You cannot install missing dependencies.)")
         pip = False
     else:
@@ -220,9 +220,9 @@ if skip == False:
             response = modules["requests"].get(source_version)
             if response.status_code == 200:
                 vc = response.json()
-                if gt(VERSION, vc["updater"]["version"]):
-                    print(f"Launcher is somehow newer than the latest release, how did you even pull this off? ({VERSION} > {vc['updater']['version']})", 200, 40, 200)
-                elif gt(vc["updater"]["version"], VERSION):
+                if gt(LAUNCHER_VERSION, vc["updater"]["version"]):
+                    print(f"Launcher is somehow newer than the latest release, how did you even pull this off? ({LAUNCHER_VERSION} > {vc['updater']['version']})", 200, 40, 200)
+                elif gt(vc["updater"]["version"], LAUNCHER_VERSION):
                     print(f"\nLauncher update available! ({VERSION} -> {vc['updater']['version']})", 40, 200, 200)
                     print(f"\n{vc['updater']['changelog']}", 40, 200, 200)
                     print("\n'install' to install\n'source' to view source\n'skip' to skip update")
@@ -236,12 +236,12 @@ if skip == False:
                         elif action == "skip":
                             print("Continuing without update...", 200, 180, 0)
                         elif action == "install":
-                            if input(f"Proceed with installing? Y/N\n> ").lower() in ["y", "yes"]:
+                            if input("Proceed with installing? Y/N\n> ").lower() in ["y", "yes"]:
                                 try:
                                     print("Downloading...", 200, 180, 40)
                                     response = modules["requests"].get(source_updater)
                                     if response.status_code == 200:
-                                        a = (response.text.replace("VERSION = \"0.0\"", f"VERSION = \"{vc['updater']['version']}\"")).encode("utf8")
+                                        a = (response.text.replace("LAUNCHER_VERSION = \"0.0\"", f"LAUNCHER_VERSION = \"{vc['updater']['version']}\"")).encode("utf8")
                                         with open(__file__, "wb") as file:
                                             file.write(a)
                                         print("Restart required for update to take effect.", 200, 180, 40)
@@ -260,7 +260,7 @@ if skip == False:
                         else:
                             print("Invalid action.", 200, 40, 40)
                 else:
-                    print(f"Launcher is up to date! ({VERSION})", 40, 200, 40)
+                    print(f"Launcher is up to date! ({LAUNCHER_VERSION})", 40, 200, 40)
                 if gt(EDITOR_VERSION, vc["editor"]["version"]):
                     print(f"Editor is somehow newer than the latest release, how did you even pull this off? ({EDITOR_VERSION} > {vc['editor']['version']})", 200, 40, 200)
                 elif gt(vc["editor"]["version"], EDITOR_VERSION):
@@ -281,7 +281,7 @@ if skip == False:
                         elif action == "skip":
                             print("Continuing without update...", 200, 180, 0)
                         elif action == "install":
-                            if input(f"Proceed with installing? Y/N\n> ").lower() in ["y", "yes"]:
+                            if input("Proceed with installing? Y/N\n> ").lower() in ["y", "yes"]:
                                 try:
                                     print("Downloading...", 200, 180, 40)
                                     response = modules["requests"].get(source_editor)
