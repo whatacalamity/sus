@@ -223,7 +223,7 @@ if skip == False:
                 if gt(LAUNCHER_VERSION, vc["updater"]["version"]):
                     print(f"Launcher is somehow newer than the latest release, how did you even pull this off? ({LAUNCHER_VERSION} > {vc['updater']['version']})", 200, 40, 200)
                 elif gt(vc["updater"]["version"], LAUNCHER_VERSION):
-                    print(f"\nLauncher update available! ({VERSION} -> {vc['updater']['version']})", 40, 200, 200)
+                    print(f"\nLauncher update available! ({LAUNCHER_VERSION} -> {vc['updater']['version']})", 40, 200, 200)
                     print(f"\n{vc['updater']['changelog']}", 40, 200, 200)
                     print("\n'install' to install\n'source' to view source\n'skip' to skip update")
                     action = ""
