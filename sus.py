@@ -1,5 +1,4 @@
 VERSION = "0.0"
-print("Heads up! The editor is being rewritten, and this version is not updated yet, expect a lot of bugs.")
 __import__("time").sleep(0.5)
 __import__("os").system("cls")
 try:
@@ -338,6 +337,7 @@ try:
 └────────────────────────────┴───────────────────────────────┴─────────────────────────────────────┘'''
 
         print(f"{hl('Make sure Among us is closed before modifying your host options.', 255, 200, 0)}")
+        print("Heads up! The editor is being rewritten, and this version is not updated yet, expect a lot of bugs.")
         input(f"{hl('| [ENTER] to proceed |', 255, 255, 255)} ")
         data = load()
         print('Input' + hl(" 'help' ", 0, 255, 0) + 'for a list of commands.')
