@@ -1,4 +1,4 @@
-VERSION="0.0"
+VERSION = "0.0"
 __import__("time").sleep(0.5)
 __import__("os").system("cls")
 try:
