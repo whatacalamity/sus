@@ -1,7 +1,7 @@
 {
   "updater": {
-  "version": "1.0.1",
-  "changelog": "Fixed some variable bugs. (epic embed failure)\nTotal rewrite of the updater.\nAdded version control to updater."
+  "version": "1.0.2",
+  "changelog": "raise SystemExit is a thing\nFixed some variable bugs. (epic embed failure)\nTotal rewrite of the updater.\nAdded version control to updater."
   },
   "editor": {
   "version": "1.0",
