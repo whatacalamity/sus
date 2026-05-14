@@ -1,6 +1,6 @@
 # Updater
 
-LAUNCHER_VERSION = "1.0.2"
+LAUNCHER_VERSION = "0.0"
 
 EDITOR_VERSION = "0.0"
 
