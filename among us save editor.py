@@ -1,6 +1,6 @@
 # Updater
 
-LAUNCHER_VERSION = "0.0"
+LAUNCHER_VERSION = "1.0.2"
 
 EDITOR_VERSION = "0.0"
 
@@ -51,11 +51,13 @@ try:
 except ImportError:
     print("Critical module \"os\" not found. How did you even pull this off?")
     input("Press ENTER to close program.\n> ")
-    exit(713)
+    raise SystemExit
 except:
     print("An error occurred while trying to import critical module \"os\". How did you even pull this off?")
     input("Press ENTER to close program.\n> ")
-    exit(713)
+    raise SystemExit
+
+clear = lambda: modules["os"].system("clear") if modules["os"].system("cls") == 1 else None
 
 def pause(msg: str="Press any key to continue . . ."):
     print(msg)
@@ -158,8 +160,7 @@ if not modules["os"].path.exists(f"{parent}\\ඞ"):
     with open(f"{parent}\\among us save editor\\ඞ", "w") as file:
         file.write("this file is here so the setup procedure doesn't run on every startup")
         file.close()
-    if modules["os"].system("cls") == 1:
-        modules["os"].system("clear")
+        clear()
     modules["os"].system(f"python \"{parent}\\among us save editor\\among us save editor.py\"")
 
 if not modules["os"].path.exists(f"{parent}\\config"):
@@ -205,7 +206,7 @@ sus = False
 if modules["os"].path.exists(f"{parent}\\sus.py"):
     sus = True
     with open(f"{parent}\\sus.py", "r") as file:
-        EDITOR_VERSION = ''.join([k for k in file.readlines()[0].split("=")[-1] if not k in " \n\""])
+        EDITOR_VERSION = ''.join([k for k in file.readlines()[2].split("=")[-1] if not k in " \n\""])
 else:
     print("sus.py is missing. Editor installation cannot be skipped.", 200, 120, 0)
 
@@ -249,7 +250,7 @@ if skip == False:
                                             file.write(a)
                                         print("Restart required for update to take effect.", 200, 180, 40)
                                         pause("Press any key to restart the launcher.")
-                                        modules["os"].system("cls")
+                                        clear()
                                         modules["os"].system(f"python \"{__file__}\"")
                                     else:
                                         print("Error in downloading launcher. Is Github down?")
@@ -314,8 +315,7 @@ if skip == False:
 
 if sus == True:
     pause("Press any key to open the editor.")
-    if modules["os"].system("cls") == 1:
-        modules["os"].system("clear")
+    clear()
     modules["os"].system(f"python \"{parent}\\sus.py\"")
 
 
@@ -348,4 +348,4 @@ if sus == True:
 
 print("How did we get here?", 80, 160, 200)
 pause("Press any key to close program.")
-exit(0)
+raise SystemExit
