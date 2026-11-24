@@ -1,10 +1,10 @@
 {
   "updater": {
-  "version": "1.0.2",
-  "changelog": "raise SystemExit is a thing\nFixed some variable bugs. (epic embed failure)\nTotal rewrite of the updater.\nAdded version control to updater."
+  "version": "0.0",
+  "changelog": "[TEST - Do not update] Total rewrite of the updater.\nAdded preference control to the updater."
   },
   "editor": {
-  "version": "1.0.1",
-  "changelog": "fixed the epic readlines()[2] failure\nAdded version control to editor."
+  "version": "0.0",
+  "changelog": "[TEST - Do not update] Total rewrite of the editor.\nAdded preference control to the editor.\nAdded the new Judge and Influencer roles to the editor."
   }
 }
